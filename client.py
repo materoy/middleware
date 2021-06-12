@@ -8,7 +8,7 @@ def conect_server(host, port):
     sock.connect((host, port))
 
 def send_data(data):
-    data = bytes(data, 'utf-8')
+    data = bytes(data, "utf-8")
     sock.sendall(data)
 
 def receive_data():
@@ -17,5 +17,7 @@ def receive_data():
 
 if __name__ == "__main__":
     conect_server(HOST, PORT)
-    send_data("SELECT * FROM Languages")
+    send_data("SELECT * FROM HallOfFame")
     data = receive_data()
+
+    print(data)

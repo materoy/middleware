@@ -26,8 +26,11 @@ def server(host, port):
             print(f"Connected to {address}")
 
             data = conn.recv(1024)
+            print(f"Received query {data}")
+            query_database(data)
             if not data:
                 print(f"Invalid data {data}")
+                break
         except KeyboardInterrupt:
             print("Exiting ...")
             break 
@@ -41,15 +44,12 @@ def query_database(query):
 
 if __name__ == "__main__":      
 
-    # sock_server = Server((HOST, PORT), Callable[..., socketserver.BaseRequestHandler], True)  
-    print("Server started http://%s:%s" % (HOST, PORT ))
+    print(f"Server started   {HOST} {PORT}")
 
-    # db = Database("middleware_db.db")
+    db = Database("middleware_db.db")
 
-
-   
     server(HOST, PORT)
    
     
-    # del db
+    del db
     print("Server stopped.")
