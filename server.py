@@ -12,10 +12,6 @@ PORT = 8081
 
 db = Database("middleware_db.db")
 
-# class Server(socketserver.TCPServer):
-#     def __init__(self, server_address: tuple[str, int], RequestHandlerClass: Callable[..., socketserver.BaseRequestHandler], bind_and_activate: bool) -> None:
-#         super().__init__(server_address, RequestHandlerClass, bind_and_activate=bind_and_activate)
-
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 def server(host, port):
     sock.bind((host, port))
@@ -27,7 +23,10 @@ def server(host, port):
 
             data = conn.recv(1024)
             print(f"Received query {data}")
-            query_database(data)
+            query_results = query_database(data)
+            query_results = bytes(query_results, 'utf-8')
+            conn.sendall(query_results)
+
             if not data:
                 print(f"Invalid data {data}")
                 break
@@ -39,7 +38,7 @@ def server(host, port):
 
 def query_database(query):
     query = query.decode('utf-8')
-    db.perform_query(query)
+    return db.perform_query(query)
 
 
 if __name__ == "__main__":      

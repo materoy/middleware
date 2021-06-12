@@ -15,7 +15,6 @@ class Database():
     def perform_query(self, query):
         query_results = self.cursor.execute(query)
         return query_results
-        
 
 
     def init_database(self):
@@ -23,9 +22,10 @@ class Database():
         try:
             self.perform_query("SELECT * FROM HallOfFame")
             results = self.perform_query("SELECT * FROM HallOfFame")
-            print(results)
-            for result in results:
-                print(result)
+            # for result in results:
+                # print(result)
+                # scholar = scholars.Scholar(result)
+                # print(scholar)
 
         except sqlite3.Error:
             self.perform_query('''CREATE TABLE HallOfFame

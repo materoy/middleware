@@ -1,9 +1,10 @@
-class Scholars():
-    def __init__(self, name, field, achievement, picture_url) -> None:
-        self.name = name
-        self.field = field
-        self.achevement = achievement
-        self.picture_url = picture_url
+class Scholar():
+    def __init__(self, scholar_data) -> None:
+        self.name = ""
+        self.field = ""
+        self.achevement  = ""
+        self.picture_url  =  ""
+        self.get_scholar(scholar_data)
 
     def __str__(self) -> str:
         return self.name
