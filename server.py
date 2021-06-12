@@ -24,8 +24,9 @@ def server(host, port):
             data = conn.recv(1024)
             print(f"Received query {data}")
             query_results = query_database(data)
-            query_results = bytes(query_results, 'utf-8')
-            conn.sendall(query_results)
+
+            # Sends the queried results back to the client
+            send_response(conn, query_results)
 
             if not data:
                 print(f"Invalid data {data}")
@@ -39,6 +40,15 @@ def server(host, port):
 def query_database(query):
     query = query.decode('utf-8')
     return db.perform_query(query)
+
+def send_response(conn, query_results):
+     scholars = []
+     for result in query_results:
+         scholars.append(result)
+
+     scholars = bytes(str(scholars), 'utf-8')
+     conn.sendall(scholars)
+
 
 
 if __name__ == "__main__":      

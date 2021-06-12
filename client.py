@@ -1,4 +1,5 @@
 import socket
+import scholars
 
 HOST = '127.0.0.1'  
 PORT = 8081  
@@ -13,11 +14,13 @@ def send_data(data):
 
 def receive_data():
     data = sock.recv(1024)
-    return data
+    return data.decode('utf-8')
 
 if __name__ == "__main__":
     conect_server(HOST, PORT)
     send_data("SELECT * FROM HallOfFame")
     data = receive_data()
-
+    
     print(data)
+    scholar = scholars.Scholar(data)
+

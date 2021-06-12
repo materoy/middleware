@@ -34,6 +34,10 @@ class Database():
                 ("Invented turing machine", "Alan Mathison Turing","Computer science", 
                 "https://en.wikipedia.org/wiki/Alan_Turing#/media/File:Alan_Turing_Aged_16.jpg")''')
 
+            self.perform_query('''INSERT INTO HallOfFame VALUES 
+                ("God's plan", "Aubrey Drake Graham","Music", 
+                "https://en.wikipedia.org/wiki/Drake_(musician)#/media/File:Drake_July_2016.jpg")''')
+
             self.conn.commit()
                 
 
