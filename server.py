@@ -7,10 +7,16 @@ import sys
 
 from middleware import Database
 
-HOST = "127.0.0.1"
-PORT = 8081
+
 
 db = Database("middleware_db.db")
+
+def get_address():
+    hostname = socket.gethostname()
+    return socket.gethostbyname(hostname)
+
+HOST = get_address()
+PORT = 8081
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 def server(host, port):
@@ -49,8 +55,6 @@ def send_response(conn, query_results):
      scholars = bytes(str(scholars), 'utf-8')
      conn.sendall(scholars)
 
-
-
 if __name__ == "__main__":      
 
     print(f"Server started   {HOST} {PORT}")
@@ -58,7 +62,7 @@ if __name__ == "__main__":
     db = Database("middleware_db.db")
 
     server(HOST, PORT)
-   
     
     del db
     print("Server stopped.")
+    

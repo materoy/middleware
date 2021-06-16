@@ -1,5 +1,6 @@
 import tkinter as tk
 import client 
+import scholars
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -8,15 +9,23 @@ class Application(tk.Frame):
         self.pack()
         self.create_widgets()
 
+#       Connects to server
+        self.connect_server
+
+        self.scholars = []
+
+        # Perform first select query
+        self.query_database("SELECT * FROM HallOfFame")
+
+        # Receive the data
+        self.get_scholars()
+
+
     def create_widgets(self):
-        self.hi_there = tk.Label(self)
-        self.hi_there["text"] = "Connect server"
-        # self.hi_there["command"] = self.say_hi()
-        self.languages = tk.Listbox(self)
-        self.languages.insert(1, self.hi_there)
-        self.languages.insert(2)
-        self.languages.insert(3)
-        self.hi_there.pack(side="top")
+        self.widgets = []
+        for i, scholar in enumerate(self.scholars):
+            self.widgets.append(tk.Label(self))
+            self.widgets[i]['text'] = scholar
 
         self.quit = tk.Button(self, text="QUIT", fg="red",
                               command=self.master.destroy)
@@ -29,8 +38,10 @@ class Application(tk.Frame):
         client.conect_server(client.HOST, client.PORT)
         pass
 
-    def say_hi(self):
-        print("hi there, everyone!")
+    def get_scholars(self):
+        self.scholars = client.receive_data()
+
+
 
 root = tk.Tk()
 root.geometry("700x400")
