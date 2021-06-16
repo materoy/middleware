@@ -11,11 +11,18 @@ from middleware import Database
 
 db = Database("middleware_db.db")
 
-def get_address():
-    hostname = socket.gethostname()
-    return socket.gethostbyname(hostname)
+def get_ip_address():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(('10.255.255.255', 1))
+        ip_address = s.getsockname()[0]
+    except Exception:
+        ip_address = '127.0.0.1'
+    finally:
+        s.close()
+    return ip_address
 
-HOST = get_address()
+HOST = get_ip_address()
 PORT = 8081
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
